@@ -1,0 +1,8 @@
+.container {
+    height: 90vh;
+}
+
+:host ::ng-deep .p-button[type='submit']{
+    display: block;
+    width: 100%;
+}

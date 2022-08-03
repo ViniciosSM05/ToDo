@@ -1,0 +1,83 @@
+<div class="grid container flex align-items-center justify-content-center">
+    <div class="col-12 sm:col-8 md:col-6 lg:col-6 xl:col-4">
+        <section class="sec-card">
+            <p-card header="Registre-se!" class="card-header">
+                <form [formGroup]="form">
+                    <div class="formgrid grid">
+                        <div class="col-12">
+                            <div class="field p-fluid">
+                                <label for="username" class="block">Nome</label>
+                                <input 
+                                    autofocus
+                                    id="username" 
+                                    formControlName="name"
+                                    class="p-inputtext-sm" 
+                                    type="username" 
+                                    pInputText 
+                                />
+                                <app-error-tag *ngIf="form.controls['name'].hasError('required')" msg="Nome é obrigatório"></app-error-tag>
+                                <app-error-response-field [response]="response" field="name"></app-error-response-field>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="field p-fluid">
+                                <label for="email" class="block">E-mail</label>
+                                <input 
+                                    id="email" 
+                                    formControlName="email"
+                                    class="p-inputtext-sm" 
+                                    type="email" 
+                                    pInputText 
+                                />
+                                <app-error-tag *ngIf="form.controls['email'].hasError('required')" msg="E-Mail é obrigatório"></app-error-tag>
+                                <app-error-tag *ngIf="form.controls['email'].hasError('email')" msg="E-Mail inválido"></app-error-tag>
+                                <app-error-response-field [response]="response" field="email"></app-error-response-field>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="field p-fluid">
+                                <label for="password" class="block">Senha</label>
+                                <p-password 
+                                    formControlName="password"
+                                    class="p-inputtext-sm" 
+                                    [feedback]="false"
+                                ></p-password>
+                                <app-error-tag *ngIf="form.controls['password'].hasError('required')" msg="Senha é obrigatória"></app-error-tag>
+                                <app-error-response-field [response]="response" field="password"></app-error-response-field>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="field p-fluid">
+                                <label for="password_confirm" class="block">Confirme a senha</label>
+                                <p-password 
+                                    formControlName="passwordConfirm"
+                                    class="p-inputtext-sm" 
+                                    [feedback]="false">
+                                </p-password>
+                                <app-error-tag *ngIf="form.controls['passwordConfirm'].hasError('required')" msg="Por favor, confirme a senha"></app-error-tag>
+                                <app-error-response-field [response]="response" field="passwordConfirm"></app-error-response-field>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="grid align-items-center">
+                                <div class="col-6 container_submit">
+                                    <p-button 
+                                        id="submit_btn" 
+                                        (click)="form.valid ? handleRegister() : ''"
+                                        styleClass="p-button-sm" 
+                                        type="submit" 
+                                        label="CADASTRAR"
+                                        [disabled]="!form.valid"
+                                    ></p-button>
+                                </div>
+                                <div class="col-6 container_social flex justify-content-end gap-2">
+                                    <a [routerLink]="['/login', '']">Já possuo uma conta</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </p-card>
+        </section>
+    </div>
+</div>

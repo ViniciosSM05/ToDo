@@ -1,0 +1,16 @@
+.container {
+    height: 90vh;
+
+    .container_submit {
+        padding: 0;
+    }
+
+    .container_social {
+        a {
+            cursor: pointer;
+            i {
+                font-size: 1.3rem
+            }
+        }     
+    }
+}

@@ -1,0 +1,3 @@
+<div *ngIf="errors.length > 0">
+    <app-error-tag *ngFor="let error of errors" msg="{{ error }}"></app-error-tag>
+</div>
