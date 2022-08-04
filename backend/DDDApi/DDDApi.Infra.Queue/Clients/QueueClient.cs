@@ -8,6 +8,12 @@ namespace DDDApi.Infra.Queue.Clients
 {
     public class QueueClient : IQueueClient
     {
+        private readonly IServiceProvider serviceProvider;
+        public QueueClient(IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+        }
+
         public Task PostOnQueueAsync<T>(string queueHost, string queueName, T message)
         {
             var json = JsonConvert.SerializeObject(message);
@@ -24,7 +30,7 @@ namespace DDDApi.Infra.Queue.Clients
             return Task.CompletedTask;
         }
 
-        public void ConsumeQueue<T>(string hostName, string queueName, Action<T> callback)
+        public async Task ConsumeQueueAsync<T>(string hostName, string queueName, Action<T> callback, CancellationToken cancellationToken)
         {
             var factory = new ConnectionFactory() { HostName = hostName };
             using var connection = factory.CreateConnection();
@@ -39,9 +45,8 @@ namespace DDDApi.Infra.Queue.Clients
                 callback(message);
             };
 
-            channel.BasicConsume(queue: queueName,
-                                 autoAck: true,
-                                 consumer: consumer);
+            channel.BasicConsume(queue: queueName, autoAck: true, consumer: consumer);
+            while (!cancellationToken.IsCancellationRequested) await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
         }
     }
 }

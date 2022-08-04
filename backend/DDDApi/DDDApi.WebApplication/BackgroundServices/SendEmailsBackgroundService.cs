@@ -13,15 +13,19 @@ namespace DDDApi.WebApplication.BackgroundServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(5));
+            //_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.MaxValue);
+            DoWork(cancellationToken);
             return Task.CompletedTask;
         }
 
-        private void DoWork(object? state)
+        private void DoWork(CancellationToken cancellationToken)
         {
-            using var scope = serviceProvider.CreateScope();
-            var emailClient = scope.ServiceProvider.GetService<IEmailClient>();
-            emailClient.ConsumeEmailsByQueue();
+            Task.Run(async () =>
+            {
+                using var scope = serviceProvider.CreateScope();
+                var emailClient = scope.ServiceProvider.GetService<IEmailClient>();
+                await emailClient.ConsumeEmailsByQueueAsync(cancellationToken);
+            }, cancellationToken);
         }
 
         public Task StopAsync(CancellationToken cancellationToken)

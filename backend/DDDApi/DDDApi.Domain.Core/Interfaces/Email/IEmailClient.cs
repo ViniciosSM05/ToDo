@@ -5,7 +5,7 @@ namespace DDDApi.Domain.Core.Interfaces.Email
     public interface IEmailClient
     {
         Task SendEmailAsync(SendEmailDTO email, CancellationToken cancellationToken);
-        void ConsumeEmailsByQueue();
+        Task ConsumeEmailsByQueueAsync(CancellationToken cancellationToken);
         Task PostEmailOnQueueAsync(SendEmailDTO sendEmail);
     }
 }

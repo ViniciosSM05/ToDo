@@ -45,11 +45,11 @@ namespace DDDApi.Infra.Email.Clients
             await smtp.DisconnectAsync(true, cancellationToken);
         }
 
-        public void ConsumeEmailsByQueue()
+        public async Task ConsumeEmailsByQueueAsync(CancellationToken cancellationToken)
         {
-            queueClient.ConsumeQueue(
+            await queueClient.ConsumeQueueAsync(
                     emailQueueConfiguration.Host, emailQueueConfiguration.Name, 
-                    async (SendEmailDTO email) => await SendEmailAsync(email, CancellationToken.None));
+                    async (SendEmailDTO email) => await SendEmailAsync(email, CancellationToken.None), cancellationToken);
         }
 
         public async Task PostEmailOnQueueAsync(SendEmailDTO sendEmail)

@@ -47,7 +47,7 @@ namespace DDDApi.Application.Applications
         public async Task CheckNextTodosAsync(CancellationToken cancellationToken)
         {          
             var initialDate = DateTime.UtcNow;
-            var finalDate = initialDate.AddMinutes(10);
+            var finalDate = initialDate.AddMinutes(5);
 
             var nextTodos = await serviceTodo.GetTodosOnPeriodAsync(initialDate, finalDate, cancellationToken);
             foreach (var todo in nextTodos)
