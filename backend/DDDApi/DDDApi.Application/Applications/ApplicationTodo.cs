@@ -13,25 +13,25 @@ namespace DDDApi.Application.Applications
             this.serviceTodo = serviceTodo;
         }
 
-        public async Task<TodoSaveDTO> Save(TodoSaveDTO obj, CancellationToken cancellationToken)
+        public async Task<TodoSaveResponseDTO> SaveAsync(TodoSaveDTO obj, CancellationToken cancellationToken)
         {
             using var transacao = TransactionScopeAsync();
-            var response = await serviceTodo.Save(obj, cancellationToken);
+            var response = await serviceTodo.SaveAsync(obj, cancellationToken);
             transacao.Complete();
 
             return response;
         }
 
-        public async Task<int> Remove(Guid id, CancellationToken cancellationToken)
+        public async Task<int> RemoveAsync(Guid id, CancellationToken cancellationToken)
         {
             using var transacao = TransactionScopeAsync();
-            var response = await serviceTodo.Remove(id, cancellationToken);
+            var response = await serviceTodo.RemoveAsync(id, cancellationToken);
             transacao.Complete();
 
             return response;
         }
 
-        public async Task<List<TodoGridDTO>> GetTodosByUserId(Guid userId, CancellationToken cancellationToken)
-            => await serviceTodo.GetTodosByUserId(userId, cancellationToken);
+        public async Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken)
+            => await serviceTodo.GetTodosByUserIdAsync(userId, cancellationToken);
     }
 }

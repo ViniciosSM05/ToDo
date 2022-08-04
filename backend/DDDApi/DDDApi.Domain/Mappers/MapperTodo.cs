@@ -9,6 +9,7 @@ namespace DDDApi.Domain.Mappers
         public MapperTodo()
         {
             CreateMap<TodoSaveDTO, Todo>().ReverseMap();
+            CreateMap<Todo, TodoSaveResponseDTO>();
         }
     }
 }

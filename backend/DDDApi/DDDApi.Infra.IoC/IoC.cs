@@ -20,6 +20,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.OpenApi.Models;
+using DDDApi.Domain.Core.Interfaces.Queue;
+using DDDApi.Infra.Queue.Clients;
 
 namespace DDDApi.Infra.IoC
 {
@@ -35,6 +37,7 @@ namespace DDDApi.Infra.IoC
                 .AddValidators()
                 .AddMappers()
                 .AddServices()
+                .AddQueue()
                 .AddApplications();
 
         public static void StartDatabase(this IServiceScope serviceScope)
@@ -136,6 +139,9 @@ namespace DDDApi.Infra.IoC
             => services
                 .AddScoped<IApplicationUser, ApplicationUser>()
                 .AddScoped<IApplicationTodo, ApplicationTodo>();
+
+        private static IServiceCollection AddQueue(this IServiceCollection services)
+            => services.AddTransient<IQueueClient, QueueClient>();
 
     }
 }

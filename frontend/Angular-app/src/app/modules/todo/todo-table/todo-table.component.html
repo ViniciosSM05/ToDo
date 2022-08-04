@@ -1,7 +1,7 @@
 <p-table [value]="todos">
     <ng-template pTemplate="caption">
         <div class="flex align-items-center justify-content-end">
-            <p-button (click)="showDialogSave()" styleClass="p-button-sm" icon="pi pi-plus"></p-button>
+            <p-button (click)="openDialogSave()" styleClass="p-button-sm" icon="pi pi-plus"></p-button>
         </div>
     </ng-template>
     <ng-template pTemplate="header">
@@ -17,40 +17,78 @@
         <tr>
             <td>{{todo.code}}</td>
             <td>{{todo.description}}</td>
-            <td>{{todo.date | date:'dd/MM/yyyy hh:mm:ss'}}</td>
+            <td>{{todo.date + 'Z' | date:'dd/MM/yyyy HH:mm:ss'}}</td>
             <td class="text-center">
-                <a class="link__action"><i class="pi pi-pencil"></i></a>
+                <a class="link__action" (click)="openDialogSave(todo)"><i class="pi pi-pencil"></i></a>
             </td>
             <td class="text-center">
-                <a class="link__action"><i class="pi pi-trash"></i></a>
+                <a class="link__action" (click)="openRemoveMessage(todo.id)"><i class="pi pi-trash"></i></a>
             </td>
         </tr>
     </ng-template>
 </p-table>
 
-<p-dialog header="Cadastro ToDo!" [(visible)]="displayModalSave" [modal]="true" [style]="{width: '60vw'}"
+<p-dialog header="Cadastro ToDo!" [(visible)]="displayModalSave" [modal]="true" [style]="{width: '60vw'}" 
     [draggable]="false" [resizable]="false">
-    <div class="grid">
-        <div class="col-4 sm:col-12 md:col-8 lg:col-4 xl:col-4 p-fluid">
-            <label for="code" class="block">Código</label>
-            <input 
-                id="code" 
-                pInputText 
-            />
+    <form [formGroup]="form">
+        <div class="grid">
+            <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4 p-fluid">
+                <label for="code" class="block">Código</label>
+                <input 
+                    id="code" 
+                    formControlName="code"
+                    pInputText 
+                />
+                <app-error-tag *ngIf="form.controls['code'].hasError('required')" msg="Código é obrigatório"></app-error-tag>
+                <app-error-response-field [response]="response" field="code"></app-error-response-field>
+            </div>
+            <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4 p-fluid">
+                <label for="description" class="block">Descrição</label>
+                <input 
+                    id="description" 
+                    formControlName="description"
+                    pInputText 
+                />
+                <app-error-tag *ngIf="form.controls['description'].hasError('required')" msg="Descrição é obrigatória"></app-error-tag>
+                <app-error-response-field [response]="response" field="description"></app-error-response-field>
+            </div>
+            <div class="col-12 sm:col-12 md:col-12 lg:col-4 xl:col-4 p-fluid">
+                <label for="email" class="block">Data</label>
+                <p-calendar 
+                    formControlName="date"
+                    [minDate]="minDate" 
+                    dateFormat="dd/mm/yy" 
+                    [showTime]="true" 
+                    [showSeconds]="true" 
+                    [touchUI]="true" 
+                    inputId="time">
+                </p-calendar>
+                <app-error-tag *ngIf="form.controls['date'].hasError('required')" msg="Data é obrigatória"></app-error-tag>
+                <app-error-response-field [response]="response" field="date"></app-error-response-field>
+            </div>
         </div>
-        <div class="col-4 sm:col-12 md:col-8 lg:col-4 xl:col-4 p-fluid">
-            <label for="description" class="block">Descrição</label>
-            <input 
-                id="description" 
-                pInputText 
-            />
-        </div>
-        <div class="col-4 sm:col-12 md:col-8 lg:col-4 xl:col-4 p-fluid">
-            <label for="email" class="block">Data</label>
-            <p-calendar [locale]="calendar_br" dateFormat="dd/mm/yy" [showTime]="true" [showSeconds]="true" [touchUI]="true" inputId="time"></p-calendar>
-        </div>
-    </div>
+    </form>
     <ng-template pTemplate="footer">
-        <p-button icon="pi pi-check" (click)="displayModalSave=false" label="SALVAR" styleClass="p-button-text"></p-button>
+        <p-button icon="pi pi-check" (click)="handleSave()" label="SALVAR" styleClass="p-button-text"></p-button>
     </ng-template>
 </p-dialog>
+
+<p-toast position="bottom-center" key="message_remove" (onClose)="closeRemove()" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div class="flex flex-column" style="flex: 1">
+            <div class="text-center">
+                <i class="pi pi-exclamation-triangle" style="font-size: 3rem"></i>
+                <h4>{{message.summary}}</h4>
+                <p>{{message.detail}}</p>
+            </div>
+            <div class="grid p-fluid">
+                <div class="col-6">
+                    <button type="button" pButton (click)="handleRemove()" label="Sim" class="p-button-success"></button>
+                </div>
+                <div class="col-6">
+                    <button type="button" pButton (click)="closeRemove()" label="Não" class="p-button-secondary"></button>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>

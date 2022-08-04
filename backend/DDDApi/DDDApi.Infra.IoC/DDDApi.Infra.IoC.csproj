@@ -21,6 +21,7 @@
     <ProjectReference Include="..\DDDApi.Domain\DDDApi.Domain.csproj" />
     <ProjectReference Include="..\DDDApi.Infra.Auth\DDDApi.Infra.Auth.csproj" />
     <ProjectReference Include="..\DDDApi.Infra.Data\DDDApi.Infra.Data.csproj" />
+    <ProjectReference Include="..\DDDApi.Infra.Queue\DDDApi.Infra.Queue.csproj" />
     <ProjectReference Include="..\DDDApi.Service\DDDApi.Service.csproj" />
   </ItemGroup>
 

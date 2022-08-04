@@ -25,7 +25,7 @@ namespace DDDApi.Service.Services
             this.validator = validator;
         }
 
-        public async Task<TodoSaveDTO> Save(TodoSaveDTO obj, CancellationToken cancellationToken)
+        public async Task<TodoSaveResponseDTO> SaveAsync(TodoSaveDTO obj, CancellationToken cancellationToken)
         {
             notification.AddFieldMessages(await validator.ValidateAsync(obj, cancellationToken));
             if (!notification.IsValid) return null;
@@ -38,10 +38,10 @@ namespace DDDApi.Service.Services
                     : repositoryTodo.UpdateAsync(model, cancellationToken)
             );
 
-            return mapper.Map<TodoSaveDTO>(model);
+            return mapper.Map<TodoSaveResponseDTO>(model);
         }
 
-        public async Task<int> Remove(Guid id, CancellationToken cancellationToken)
+        public async Task<int> RemoveAsync(Guid id, CancellationToken cancellationToken)
         {
             var todo = await repositoryTodo.GetByIdAsync(id, cancellationToken);
             if (todo is null) { notification.AddMessage("Todo não encontrado"); return 0; }
@@ -49,7 +49,7 @@ namespace DDDApi.Service.Services
             return await repositoryTodo.RemoveAsync(todo, cancellationToken);
         }
 
-        public async Task<List<TodoGridDTO>> GetTodosByUserId(Guid userId, CancellationToken cancellationToken)
+        public async Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken)
             => await repositoryTodo.GetTodosByUserIdAsync(userId, cancellationToken);
     }
 }

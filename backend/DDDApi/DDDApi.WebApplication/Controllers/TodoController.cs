@@ -19,17 +19,17 @@ namespace DDDApi.WebApplication.Controllers
 
         [HttpGet("GetTodosByUser/{userId}")]
         [Authorize]
-        public Task<ActionResult<ResponseViewModel<List<TodoGridDTO>>>> GetTodosByUser(Guid userId, CancellationToken cancellationToken)
-            => ExecuteAsync(() => applicationTodo.GetTodosByUserId(userId, cancellationToken));
+        public Task<ActionResult<ResponseViewModel<List<TodoGridDTO>>>> GetTodosByUserAsync(Guid userId, CancellationToken cancellationToken)
+            => ExecuteAsync(() => applicationTodo.GetTodosByUserIdAsync(userId, cancellationToken));
 
         [HttpPost("Save")]
         [Authorize]
-        public Task<ActionResult<ResponseViewModel<TodoSaveDTO>>> Save([FromBody] TodoSaveDTO obj, CancellationToken cancellationToken)
-            => ExecuteAsync(() => applicationTodo.Save(obj, cancellationToken));
+        public Task<ActionResult<ResponseViewModel<TodoSaveResponseDTO>>> SaveAsync([FromBody] TodoSaveDTO obj, CancellationToken cancellationToken)
+            => ExecuteAsync(() => applicationTodo.SaveAsync(obj, cancellationToken));
 
-        [HttpDelete("Remove")]
+        [HttpDelete("Remove/{id}")]
         [Authorize]
-        public Task<ActionResult<ResponseViewModel<int>>> Remove([FromBody] Guid id, CancellationToken cancellationToken)
-            => ExecuteAsync(() => applicationTodo.Remove(id, cancellationToken));
+        public Task<ActionResult<ResponseViewModel<int>>> RemoveAsync(Guid id, CancellationToken cancellationToken)
+            => ExecuteAsync(() => applicationTodo.RemoveAsync(id, cancellationToken));
     }
 }

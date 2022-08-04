@@ -4,8 +4,8 @@ namespace DDDApi.Domain.Core.Interfaces.Application
 {
     public interface IApplicationTodo
     {
-        Task<TodoSaveDTO> Save(TodoSaveDTO obj, CancellationToken cancellationToken);
-        Task<int> Remove(Guid id, CancellationToken cancellationToken);
-        Task<List<TodoGridDTO>> GetTodosByUserId(Guid userId, CancellationToken cancellationToken);
+        Task<TodoSaveResponseDTO> SaveAsync(TodoSaveDTO obj, CancellationToken cancellationToken);
+        Task<int> RemoveAsync(Guid id, CancellationToken cancellationToken);
+        Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken);
     }
 }

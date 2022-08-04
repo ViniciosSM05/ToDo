@@ -9,7 +9,9 @@ import { TableModule } from 'primeng/table';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 import { CalendarModule } from 'primeng/calendar';
-
+import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { ToastModule } from 'primeng/toast';
 @NgModule({
   declarations: [
     TodoViewComponent,
@@ -23,7 +25,10 @@ import { CalendarModule } from 'primeng/calendar';
     TableModule,
     DialogModule,
     InputTextModule,
-    CalendarModule
+    CalendarModule,
+    ReactiveFormsModule,
+    ToastModule,
+    SharedModule
   ],
   exports: [
     TodoTableComponent

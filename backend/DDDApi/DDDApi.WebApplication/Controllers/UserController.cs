@@ -22,12 +22,12 @@ namespace DDDApi.WebApplication.Controllers
 
         [HttpPost("Save")]
         [AllowAnonymous]
-        public Task<ActionResult<ResponseViewModel<UserSaveResponseDTO>>> Save([FromBody] UserSaveDTO obj, CancellationToken cancellationToken)
+        public Task<ActionResult<ResponseViewModel<UserSaveResponseDTO>>> SaveAsync([FromBody] UserSaveDTO obj, CancellationToken cancellationToken)
             => ExecuteAsync(() => applicationUser.Save(obj, cancellationToken));
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        public Task<ActionResult<ResponseViewModel<UserLoginResponseDTO>>> Login([FromBody] UserLoginDTO obj, CancellationToken cancellationToken)
+        public Task<ActionResult<ResponseViewModel<UserLoginResponseDTO>>> LoginAsync([FromBody] UserLoginDTO obj, CancellationToken cancellationToken)
             => ExecuteAsync(() => applicationUser.Login(obj, cancellationToken));
     }
 }

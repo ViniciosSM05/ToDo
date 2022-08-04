@@ -31,7 +31,7 @@ namespace DDDApi.Service.Services
             this.authToken = authToken;
         }
 
-        public async Task<UserSaveResponseDTO> Save(UserSaveDTO obj, CancellationToken cancellationToken)
+        public async Task<UserSaveResponseDTO> SaveAsync(UserSaveDTO obj, CancellationToken cancellationToken)
         {
             notification.AddFieldMessages(await validator.ValidateAsync(obj, cancellationToken));    
             if (!notification.IsValid) return null;
@@ -44,7 +44,7 @@ namespace DDDApi.Service.Services
             return mapper.Map<UserSaveResponseDTO>(model);
         }
 
-        public async Task<UserLoginResponseDTO> Login(UserLoginDTO obj, CancellationToken cancellationToken)
+        public async Task<UserLoginResponseDTO> LoginAsync(UserLoginDTO obj, CancellationToken cancellationToken)
         {
             var user = await repositoryUser.GetByCredentialsAsync(obj.Email, obj.Password, cancellationToken);
             if (user is null) { notification.AddMessage("Usuário não encontrado"); return null; }

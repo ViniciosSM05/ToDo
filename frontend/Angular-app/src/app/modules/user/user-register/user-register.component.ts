@@ -46,9 +46,9 @@ export class UserRegisterComponent extends BaseForm<UserSaveResponseModel> imple
             };
 
             this.userService.register(obj).subscribe({
-                error: (error: ResponseModel<UserSaveResponseModel>) => {
-                    if (error) this.setResponse = error;
-                    this.messageService.showWarningMessage("Ops! Houve inconsistências");
+                error: (resp: HttpErrorResponse) => {
+                    if (resp.error) this.setResponse = resp.error;
+                    this.messageService.showErrorMessage("Ops! Houve inconsistências", resp);
                 },
                 next: resp => {
                     this.setResponse = resp;

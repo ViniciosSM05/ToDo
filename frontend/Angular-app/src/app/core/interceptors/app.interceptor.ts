@@ -26,15 +26,14 @@ export class AppInterceptor implements HttpInterceptor {
       .pipe(
         catchError((error: HttpErrorResponse) => {
           switch (error.status){
-            case HTTPCODE.NOT_RESPONSE:
-                this.messageService.showErrorMessage("SERVER ERROR", true); break;
-            case HTTPCODE.INTERNAL_SERVER_ERROR:
-                this.messageService.showErrorMessage("SERVER ERROR", true); break;
+            case HTTPCODE.NOT_RESPONSE: break;
+            case HTTPCODE.INTERNAL_SERVER_ERROR: break;
             case HTTPCODE.NOT_FOUND: break;
             case HTTPCODE.UNAUTHORIZED: break;
             case HTTPCODE.FORBIDDEN: break;
+            default: break;
           }         
-          return throwError(() => error.error);
+          return throwError(() => error);
         })
       );
   }

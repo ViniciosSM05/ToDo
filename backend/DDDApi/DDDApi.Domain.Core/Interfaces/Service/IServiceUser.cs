@@ -4,7 +4,7 @@ namespace DDDApi.Domain.Core.Interfaces.Service
 {
     public interface IServiceUser
     {
-        Task<UserSaveResponseDTO> Save(UserSaveDTO obj, CancellationToken cancellationToken);
-        Task<UserLoginResponseDTO> Login(UserLoginDTO obj, CancellationToken cancellationToken);
+        Task<UserSaveResponseDTO> SaveAsync(UserSaveDTO obj, CancellationToken cancellationToken);
+        Task<UserLoginResponseDTO> LoginAsync(UserLoginDTO obj, CancellationToken cancellationToken);
     }
 }
