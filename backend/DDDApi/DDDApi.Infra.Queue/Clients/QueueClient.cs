@@ -24,7 +24,7 @@ namespace DDDApi.Infra.Queue.Clients
             return Task.CompletedTask;
         }
 
-        public async Task ConsumeQueueAsync<T>(string hostName, string queueName, int delayInMinutes, Action<T> callback)
+        public void ConsumeQueue<T>(string hostName, string queueName, Action<T> callback)
         {
             var factory = new ConnectionFactory() { HostName = hostName };
             using var connection = factory.CreateConnection();
@@ -42,8 +42,6 @@ namespace DDDApi.Infra.Queue.Clients
             channel.BasicConsume(queue: queueName,
                                  autoAck: true,
                                  consumer: consumer);
-
-            while (true) await Task.Delay(delayInMinutes * 1000 * 60);
         }
     }
 }

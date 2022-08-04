@@ -22,6 +22,11 @@ using System.Text;
 using Microsoft.OpenApi.Models;
 using DDDApi.Domain.Core.Interfaces.Queue;
 using DDDApi.Infra.Queue.Clients;
+using DDDApi.Domain.Core.Interfaces.Email;
+using DDDApi.Infra.Email;
+using DDDApi.Infra.Email.Clients;
+using DDDApi.Infra.Email.Builders;
+using DDDApi.Infra.Queue.Configurations;
 
 namespace DDDApi.Infra.IoC
 {
@@ -36,8 +41,9 @@ namespace DDDApi.Infra.IoC
                 .AddNotifications()
                 .AddValidators()
                 .AddMappers()
-                .AddServices()
                 .AddQueue()
+                .AddEmail()
+                .AddServices()
                 .AddApplications();
 
         public static void StartDatabase(this IServiceScope serviceScope)
@@ -141,7 +147,20 @@ namespace DDDApi.Infra.IoC
                 .AddScoped<IApplicationTodo, ApplicationTodo>();
 
         private static IServiceCollection AddQueue(this IServiceCollection services)
-            => services.AddTransient<IQueueClient, QueueClient>();
+        {
+            services.AddTransient<IQueueClient, QueueClient>();
+            services.AddSingleton<IEmailQueueConfiguration, EmailQueueConfiguration>();
+            return services;
 
+        }
+
+        private static IServiceCollection AddEmail(this IServiceCollection services)
+        {
+            services.AddSingleton<IEmailConfiguration, EmailConfiguration>();
+            services.AddTransient<ISendEmailBuilder, SendEmailBuilder>();
+            services.AddTransient<IEmailClient, EmailClient>();
+
+            return services;
+        }
     }
 }

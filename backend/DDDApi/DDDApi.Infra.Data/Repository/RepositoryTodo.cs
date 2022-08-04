@@ -36,5 +36,25 @@ namespace DDDApi.Infra.Data.Repository
 
             return await query.ToListAsync(cancellationToken);
         }
+
+        public async Task<List<TodoCheckDTO>> GetTodosOnPeriodAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellationToken)
+        {
+            var query = (
+                from todo in dbSet.AsQueryable()
+                join user in dbContext.Users on todo.UserId equals user.Id
+                where todo.Date >= initialDate && todo.Date <= finalDate
+                select new TodoCheckDTO
+                {
+                    Id = todo.Id,
+                    Code = todo.Code,
+                    Description = todo.Description,
+                    Date = todo.Date,
+                    UserEmail = user.Email,
+                    UserName = user.Name
+                }
+            );
+
+            return await query.ToListAsync(cancellationToken);
+        }
     }
 }

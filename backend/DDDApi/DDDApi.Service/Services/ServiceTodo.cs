@@ -51,5 +51,8 @@ namespace DDDApi.Service.Services
 
         public async Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken)
             => await repositoryTodo.GetTodosByUserIdAsync(userId, cancellationToken);
+
+        public async Task<List<TodoCheckDTO>> GetTodosOnPeriodAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellationToken)
+            => await repositoryTodo.GetTodosOnPeriodAsync(initialDate, finalDate, cancellationToken);
     }
 }

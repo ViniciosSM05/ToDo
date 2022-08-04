@@ -9,5 +9,6 @@ namespace DDDApi.Domain.Core.Interfaces.Repository
         Task<bool> ExistsCodeAsync(string code, Guid userId, CancellationToken cancellationToken);
         Task<bool> ExistsCodeExceptIdAsync(Guid exceptId, string code, Guid userId, CancellationToken cancellationToken);
         Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+        Task<List<TodoCheckDTO>> GetTodosOnPeriodAsync(DateTime initialDate, DateTime finalDate, CancellationToken cancellationToken);
     }
 }

@@ -1,10 +1,13 @@
 using DDDApi.Infra.IoC;
+using DDDApi.WebApplication.BackgroundServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddDependencies(builder.Configuration);
+builder.Services.AddHostedService<CheckNextTodosBackgroundService>();
+builder.Services.AddHostedService<SendEmailsBackgroundService>();
 
 var app = builder.Build();
 if (app.Environment.IsDevelopment())

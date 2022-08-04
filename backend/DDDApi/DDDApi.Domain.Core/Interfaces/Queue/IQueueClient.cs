@@ -2,7 +2,7 @@
 {
     public interface IQueueClient
     {
-        Task ConsumeQueueAsync<T>(string hostName, string queueName, int delayInMinutes, Action<T> callback);
+        void ConsumeQueue<T>(string hostName, string queueName, Action<T> callback);
         Task PostOnQueueAsync<T>(string queueHost, string queueName, T message);
     }
 }

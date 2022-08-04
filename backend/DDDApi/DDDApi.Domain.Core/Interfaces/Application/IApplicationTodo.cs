@@ -7,5 +7,6 @@ namespace DDDApi.Domain.Core.Interfaces.Application
         Task<TodoSaveResponseDTO> SaveAsync(TodoSaveDTO obj, CancellationToken cancellationToken);
         Task<int> RemoveAsync(Guid id, CancellationToken cancellationToken);
         Task<List<TodoGridDTO>> GetTodosByUserIdAsync(Guid userId, CancellationToken cancellationToken);
+        Task CheckNextTodosAsync(CancellationToken cancellationToken);
     }
 }
