@@ -40,7 +40,6 @@ namespace DDDApi.Service.Services
             model.Password = Cryptography.Execute(obj.Password);
 
             await repositoryUser.AddAsync(model, cancellationToken);
-
             return mapper.Map<UserSaveResponseDTO>(model);
         }
 

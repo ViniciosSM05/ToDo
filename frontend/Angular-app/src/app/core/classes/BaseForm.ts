@@ -1,6 +1,5 @@
 import { ResponseModel } from "src/app/shared/models/response/response.model";
 
-
 export abstract class BaseForm<T> {
     _response!: ResponseModel<T>;
     constructor() { }

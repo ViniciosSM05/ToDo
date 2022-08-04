@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using DDDApi.Domain.Core.Interfaces.Application;
+﻿using DDDApi.Domain.Core.Interfaces.Application;
 using DDDApi.Domain.Core.Interfaces.Notification;
 using DDDApi.Domain.Core.DTO.User;
 using DDDApi.WebApplication.Controllers.Base;
 using DDDApi.WebApplication.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using DDDApi.Domain.Core.Interfaces.Auth;
 
 namespace DDDApi.WebApplication.Controllers
 {
@@ -28,6 +26,6 @@ namespace DDDApi.WebApplication.Controllers
         [HttpPost("Login")]
         [AllowAnonymous]
         public Task<ActionResult<ResponseViewModel<UserLoginResponseDTO>>> LoginAsync([FromBody] UserLoginDTO obj, CancellationToken cancellationToken)
-            => ExecuteAsync(() => applicationUser.Login(obj, cancellationToken));
+            => ExecuteAsync(() => applicationUser.LoginAsync(obj, cancellationToken));
     }
 }

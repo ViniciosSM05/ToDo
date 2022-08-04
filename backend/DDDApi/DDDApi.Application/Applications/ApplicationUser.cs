@@ -27,23 +27,23 @@ namespace DDDApi.Application.Applications
         {
             using var transacao = TransactionScopeAsync();
             var response = await serviceUser.SaveAsync(obj, cancellationToken);
-            await AddWelcomeEmail(response.Name, response.Email);
+            await AddWelcomeEmailAsync(response.Name, response.Email);
             transacao.Complete();
 
             return response;
         }
 
-        private async Task AddWelcomeEmail(string userName, string userEmail)
+        private async Task AddWelcomeEmailAsync(string userName, string userEmail)
         {
             var emailToSend = sendEmailBuilder
-                .WithSubject("BOAS VINDAS AO TODO!!!")
+                .WithSubject("SEJA BEM VINDO AO TODO!!!")
                 .WithRecipient(userEmail)
                 .WithBodyHTML($"<h1>Olá {userName}, seja bem-vindo!</h1>")
                 .Build();
             await emailClient.PostEmailOnQueueAsync(emailToSend);
         }
 
-        public async Task<UserLoginResponseDTO> Login(UserLoginDTO obj, CancellationToken cancellationToken)
+        public async Task<UserLoginResponseDTO> LoginAsync(UserLoginDTO obj, CancellationToken cancellationToken)
             => await serviceUser.LoginAsync(obj, cancellationToken);
     }
 }
