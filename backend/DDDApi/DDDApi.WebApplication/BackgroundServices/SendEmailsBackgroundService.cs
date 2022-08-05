@@ -5,7 +5,7 @@ namespace DDDApi.WebApplication.BackgroundServices
     public class SendEmailsBackgroundService : IHostedService
     {
         private readonly IServiceProvider serviceProvider;
-        private Timer? _timer = null;
+        private readonly Timer? _timer = null;
         public SendEmailsBackgroundService(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
@@ -13,7 +13,6 @@ namespace DDDApi.WebApplication.BackgroundServices
 
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            //_timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.MaxValue);
             DoWork(cancellationToken);
             return Task.CompletedTask;
         }

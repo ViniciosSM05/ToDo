@@ -15,7 +15,6 @@ namespace DDDApi.WebApplication.Controllers
         public UserController(IApplicationUser applicationUser, INotification notification) : base(notification)
         {
             this.applicationUser = applicationUser;
-
         }
 
         [HttpPost("Save")]

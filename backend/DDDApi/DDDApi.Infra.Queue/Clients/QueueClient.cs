@@ -8,10 +8,9 @@ namespace DDDApi.Infra.Queue.Clients
 {
     public class QueueClient : IQueueClient
     {
-        private readonly IServiceProvider serviceProvider;
-        public QueueClient(IServiceProvider serviceProvider)
+        public QueueClient()
         {
-            this.serviceProvider = serviceProvider;
+
         }
 
         public Task PostOnQueueAsync<T>(string queueHost, string queueName, T message)

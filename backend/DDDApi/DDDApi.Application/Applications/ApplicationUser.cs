@@ -26,10 +26,13 @@ namespace DDDApi.Application.Applications
         public async Task<UserSaveResponseDTO> Save(UserSaveDTO obj, CancellationToken cancellationToken)
         {
             using var transacao = TransactionScopeAsync();
+
             var response = await serviceUser.SaveAsync(obj, cancellationToken);
+            if (response is null) return response;
+
             await AddWelcomeEmailAsync(response.Name, response.Email);
             transacao.Complete();
-
+            
             return response;
         }
 
