@@ -3,6 +3,20 @@
         <img src="../../../assets/images/logo-todo.png" height="40" class="mr-2" [routerLink]="['/']">
     </ng-template>
     <ng-template pTemplate="end">
-        <p-button label="ENTRAR" styleClass="p-button-link" [routerLink]="['/login', '']"></p-button>
+        <p-button 
+            *ngIf="buttonLogin === enumButtonHeader.Enter" 
+            icon="pi pi-arrow-right"
+            label="ENTRAR" 
+            [routerLink]="['/login', '']"
+            styleClass="p-button-sm">
+        </p-button>
+
+        <p-button 
+            *ngIf="buttonLogin === enumButtonHeader.Quit"
+            icon="pi pi-power-off"
+            label="SAIR" 
+            (click)="handleDisconnect()"
+            styleClass="p-button-secondary p-button-sm">
+        </p-button>
     </ng-template>
 </p-menubar>

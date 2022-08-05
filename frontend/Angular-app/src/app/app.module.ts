@@ -8,6 +8,8 @@ import { SharedModule } from './shared/shared.module';
 import { ToastModule } from 'primeng/toast';
 import { UserModule } from './modules/user/user.module';
 import { TodoModule } from './modules/todo/todo.module';
+import { HomeModule } from './modules/home/home.module';
+import { ContactModule } from './modules/contact/contact.module';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { TodoModule } from './modules/todo/todo.module';
     CoreModule,
     SharedModule,
     ToastModule,
+    HomeModule,
     UserModule,
+    ContactModule,
     TodoModule,
   ],
   bootstrap: [AppComponent]

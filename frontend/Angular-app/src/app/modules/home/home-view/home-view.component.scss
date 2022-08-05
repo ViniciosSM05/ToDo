@@ -1,0 +1,35 @@
+.typewriter-text {
+    text-align: center;
+    font-size: 2.4rem;
+    overflow: hidden;
+    border-right: 2px solid rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+    animation: typewriter 2s steps(44) 1s normal both, blickTextCursor 400ms steps(44) infinite normal;  
+}
+
+@keyframes typewriter {
+    from { width: 0; }
+    to { width: 18em; }
+}
+
+@keyframes blickTextCursor {
+    from { border-right: 2px solid rgba(255, 255, 255, 0.75); }
+    to { border-right-color: transparent; }
+}
+
+.item_list {
+    line-height: 2rem;
+}
+
+.item_no_list {
+    list-style: none;
+}
+
+.section__cards {
+    align-items: stretch !important;
+}
+
+:host ::ng-deep .card > * {
+    height: 100%;
+}
+

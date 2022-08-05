@@ -51,7 +51,7 @@ export class AuthService {
     if (result && result.token) {
       localStorage.setItem('token', result.token);
       delete result['token'];
-      localStorage.setItem('user', JSON.stringify(result));
+      localStorage.setItem('user', JSON.stringify(result));     
     }
   }
 }

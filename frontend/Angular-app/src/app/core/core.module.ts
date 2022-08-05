@@ -14,6 +14,7 @@ import { AuthService } from './authentication/auth.service';
 import { LoggedInGuard } from './guards/logged-in.guard';
 import { GuestGuard } from './guards/guest.guard';
 import { TodoService } from './services/http/todo/todo.service';
+import { HeaderService } from './services/header/header.service';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { TodoService } from './services/http/todo/todo.service';
     BaseHttpService,
     UserService,
     TodoService,
+    HeaderService,
     AuthService,
     GuestGuard,
     LoggedInGuard,

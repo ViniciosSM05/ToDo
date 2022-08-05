@@ -6,6 +6,7 @@ import { UserRegisterComponent } from './user-register/user-register.component';
 
 const routes: Routes = [
   { path: 'register', component: UserRegisterComponent, canActivate: [GuestGuard] },
+  { path: 'login', component: UserLoginComponent, canActivate: [GuestGuard] },
   { path: 'login/:email', component: UserLoginComponent, canActivate: [GuestGuard] },
 ];
 
